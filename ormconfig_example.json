@@ -1,0 +1,55 @@
+[{
+   "name": "production",
+   "type": "postgres",
+   "host": "the db link",
+   "port": 5432,
+   "username": "your username",
+   "password": "your user password",
+   "database": "production db",
+   "synchronize": false,
+   "logging": false,
+   "uuidExtension":"uuid-ossp",
+   "entities": [
+      "./dist/src/DB_Manager/entity/**/*.js"
+   ],
+   "migrations": [
+      "./dist/src/DB_Manager/migration/**/*.js"
+      
+   ],
+   "subscribers": [
+      "./dist/src/DB_Manager/subscriber/**/*.js"
+   ],
+   "cli": {
+      "entitiesDir": "src/DB_Manager/entity",
+      "migrationsDir": "src/DB_Manager/migration",
+      "subscribersDir": "src/DB_Manager/subscriber"
+   }
+},
+   {
+      "name": "development",
+      "type": "postgres",
+      "host": "localhost",
+      "port": 5432,
+      "username": "your username",
+      "password": "your password",
+      "database": "your db name",
+      "synchronize": false,
+      "logging": false,
+      "uuidExtension":"uuid-ossp",
+      "entities": [
+         "./dist/src/DB_Manager/entity/**/*.js"
+      ],
+      "migrations": [
+         "./dist/src/DB_Manager/migration/**/*.js"
+         
+      ],
+      "subscribers": [
+         "./dist/src/DB_Manager/subscriber/**/*.js"
+      ],
+      "cli": {
+         "entitiesDir": "src/DB_Manager/entity",
+         "migrationsDir": "src/DB_Manager/migration",
+         "subscribersDir": "src/DB_Manager/subscriber"
+      }
+   }
+]

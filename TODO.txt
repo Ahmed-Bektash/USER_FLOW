@@ -1,0 +1,4 @@
+[] set up deployment and document it
+[] set up unit testing and scripts
+[] set up docker work flow
+[] update reset password url when deploying
