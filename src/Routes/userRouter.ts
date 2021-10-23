@@ -1,8 +1,9 @@
 import { Router,Request, Response} from "express";
 import routeHandler from "../helpers/routeHandler";
 import userController from '../Controllers/UserController';
-import { ErrorResponse } from "../types";
+import { ErrorResponse, Page_type, UserRole } from "../types";
 import Authenticate from "../Middleware/Authentication";
+import Authorize from "../Middleware/Authorization";
 
 
 
@@ -50,7 +51,7 @@ userRouter.put('/passwordreset/:resetToken',Authenticate,async(req: Request,res:
 }
 }); 
 
-userRouter.delete('/',Authenticate,async(req: Request,res:Response,next)=>{
+userRouter.delete('/',Authenticate,Authorize(UserRole.UNDEFINED,Page_type.PRIVATE),async(req: Request,res:Response,next)=>{
 
   try {
     await routeHandler(req,res,userController.deleteUser); 
@@ -62,9 +63,9 @@ userRouter.delete('/',Authenticate,async(req: Request,res:Response,next)=>{
 
 
 
+//test diffferent roles
 
-
-userRouter.get('/dashboard',Authenticate,async(req: Request,res:Response)=>{
+userRouter.get('/dashboard',Authenticate,Authorize(UserRole.UNDEFINED,Page_type.PRIVATE),async(req: Request,res:Response)=>{
   // console.log(req.headers) 
   console.log(req.session)
   res.send('Dashboard!')

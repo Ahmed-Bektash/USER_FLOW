@@ -46,10 +46,19 @@ export interface userInfo{
 }
 
 export enum UserRole {
+    UNDEFINED="Undefiend", //deffault
     ADMIN = "Admin",
     BASIC = "Basic",
     PREMIUM = "Premium",
-    BUSINESS = "Business"
+    BUSINESS = "Business",
+    PREMIUM_BUSINESS= "Premium_Business"
+}
+
+export enum Page_type{
+    ADMIN='Admin', //only admin can access
+    PRIVATE= 'Private', //only signed in user can access
+    PAID ='Paid', //only paid users can access this
+    PUBLIC = "Public" //default
 }
 
 export interface returnObject{
@@ -73,6 +82,8 @@ export enum DataElement_Types{
     'Upload',
     'Product'
 }
+
+
 
 export enum verifyType{
     Email = 'email',
