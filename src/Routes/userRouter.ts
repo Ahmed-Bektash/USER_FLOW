@@ -19,6 +19,7 @@ userRouter.post('/register',async(req: Request,res:Response,next)=>{
 
 userRouter.post('/login',async(req: Request,res:Response,next)=>{
   try {
+    
   await routeHandler(req,res,userController.LoginUser); 
 } catch (error) {
   next(new ErrorResponse(error.message,error.type));
@@ -47,6 +48,16 @@ userRouter.put('/passwordreset/:resetToken',Authenticate,async(req: Request,res:
 } catch (error) {
   next(new ErrorResponse(error.message,error.type));
 }
+}); 
+
+userRouter.delete('/',Authenticate,async(req: Request,res:Response,next)=>{
+
+  try {
+    await routeHandler(req,res,userController.deleteUser); 
+  } catch (error) {
+    next(new ErrorResponse(error.message,error.type));
+  }
+
 });
 
 
@@ -55,8 +66,7 @@ userRouter.put('/passwordreset/:resetToken',Authenticate,async(req: Request,res:
 
 userRouter.get('/dashboard',Authenticate,async(req: Request,res:Response)=>{
   // console.log(req.headers) 
-  console.log('userID:',(req.session as any).user_ID)
-  console.log('type:',(req.session as any).user_Type)
+  console.log(req.session)
   res.send('Dashboard!')
 });
 

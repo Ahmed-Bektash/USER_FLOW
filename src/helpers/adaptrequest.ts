@@ -12,9 +12,11 @@ export default function adaptRequest (req:Request):RequestInterface {
   params: req.params,
   query: req.query,
   body: req.body,
-  session: req.session.id
-
+  session: {
+    uid:  (req.session as any).user_ID,
+    role: (req.session as any).user_Type
  }
+}
 
  return httpreq;
 }

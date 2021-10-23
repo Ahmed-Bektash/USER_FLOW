@@ -6,7 +6,7 @@ export interface RequestInterface{
     params?: undefined | paramsDictionary,
     query?: undefined |any, //later define query interface with all possible properties
     body?: any, //later define a body respone type
-    session?: string
+    session?: sessionInterface
 }
 
 type paramsDictionary={
@@ -48,7 +48,8 @@ export interface userInfo{
 export enum UserRole {
     ADMIN = "Admin",
     BASIC = "Basic",
-    PREMIUM = "Premium"
+    PREMIUM = "Premium",
+    BUSINESS = "Business"
 }
 
 export interface returnObject{
@@ -69,7 +70,8 @@ export type DataElement= userInfo
 
 export enum DataElement_Types{
     'User',
-    'Upload'
+    'Upload',
+    'Product'
 }
 
 export enum verifyType{

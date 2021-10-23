@@ -1,6 +1,6 @@
-import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToMany, JoinTable} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn, ManyToMany, JoinTable, OneToMany} from "typeorm";
 import { Product } from "./Product";
-import { Upload } from "./Upload";
+import { Comment } from "./Comment";
 import { UserRole } from "../../types";
 
 @Entity()
@@ -47,8 +47,8 @@ export class User extends BaseEntity{
     updatedAt:Date;
 
     //relationships
-    @OneToMany(() => Upload, upload => upload.user) 
-    uploads: Upload[];
+    // @OneToMany(() => Upload, upload => upload.user) 
+    // uploads: Upload[];
     
     @ManyToMany(() => User)
     @JoinTable()
@@ -56,7 +56,10 @@ export class User extends BaseEntity{
   
     @ManyToMany(() => Product)
     @JoinTable()
-    product: Product[];
+    liked_products: Product[];
+
+    @OneToMany(() => Comment, comment => comment.author) 
+    comments: Comment[];
 
     
 

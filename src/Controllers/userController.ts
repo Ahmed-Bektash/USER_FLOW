@@ -157,6 +157,38 @@ class userController{
         }
     }
     
+	deleteUser:Controller = async (Request:RequestInterface):Promise<ResponseInterface>=>{
+
+        let response:ResponseInterface={
+            status:200 //default to be overwritten
+        };
+
+        const toBeDeleted:userInfo={
+            id:Request.body.id 
+          } //not params for secuirty not to have the ID displayed on the URL
+
+         const RequestingUser:userInfo={
+             id: (Request.session as any).uid,
+             type:(Request.session as any).role
+         }
+             console.log('deleter:',(Request.session as any).uid)
+            console.log('type:',(Request.session as any).role)
+            console.log('deleting:',(Request.body.id))
+        try {
+            //by now the user should be already authenticated
+            const type:DataElement_Types=DataElement_Types.User
+            await Delete(toBeDeleted,RequestingUser,type);
+            response.body={
+                success:true,
+                message: `user with id: ${toBeDeleted.id} has been deleted`
+            }
+            
+            return response;         
+            
+        } catch (error) {
+            throw new ErrorResponse(`Can't delete user due to: ${error.message}`,error.type);
+        }
+    } 
     
 }
 

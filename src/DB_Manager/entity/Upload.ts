@@ -1,6 +1,6 @@
 import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn, ManyToOne} from "typeorm";
 import { Product } from "./Product";
-import { User } from "./User";
+// import { User } from "./User";
 
 @Entity()
 export class Upload extends BaseEntity{
@@ -21,8 +21,8 @@ export class Upload extends BaseEntity{
     updatedAt:Date;
 
     //relationships
-    @ManyToOne(() => User, user => user.uploads,{cascade:true})
-    user: User;
+    // @ManyToOne(() => User, user => user.uploads,{cascade:true})
+    // user: User;
 
     @ManyToOne(() => Product, product => product.uploads,{cascade:true})
     product: Product;

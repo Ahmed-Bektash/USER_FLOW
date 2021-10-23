@@ -1,6 +1,6 @@
 //abstracts all the DB methods and exposes functions to be used by usecases
 import {User} from './entity/User'
-import {getConnection, getRepository} from 'typeorm'
+import {getConnection} from 'typeorm'
 import {DataElement, DataElement_Types, ErrorResponse, ErrorTypes, userInfo, UserRole, verifyType} from "../types";
 
 
@@ -10,8 +10,9 @@ const bcrypt = require('bcrypt');
 export async function DB_addElement(element:DataElement,type:DataElement_Types){ 
 
 if(type==DataElement_Types.User){
-
-    const UserRepo = getRepository(User);
+    
+    //added get connection because i am using multiple connections
+    const UserRepo = getConnection(process.env.NODE_ENV).getRepository(User); 
     
     const existsingUser = await UserRepo.createQueryBuilder("User")
                                         .where("email=:email", { email: element.email })
@@ -66,7 +67,7 @@ export async function DB_verifyElement(element:DataElement,type:DataElement_Type
     
     if(type==DataElement_Types.User){
        
-        const UserRepo = getRepository(User);
+        const UserRepo = getConnection(process.env.NODE_ENV).getRepository(User);
         let existingUser:User;
 
         if(verifyby===verifyType.Email_Passwod){
@@ -153,7 +154,7 @@ export async function DB_UpdateElement(ID:string,type:DataElement_Types,toBeUpda
     if(type==DataElement_Types.User){
  
         try {
-            await getConnection()
+            await getConnection(process.env.NODE_ENV)
                   .createQueryBuilder()
                   .update(User)
                   .set(toBeUpdated)
@@ -183,3 +184,27 @@ export async function DB_UpdateElement(ID:string,type:DataElement_Types,toBeUpda
  
  }
 
+
+ export async function DB_DeleteElement(element:DataElement,type:DataElement_Types){
+   
+    let deleteRes:Boolean=false;
+
+    switch (type) {
+
+         case DataElement_Types.User:
+             try {
+                 const UserRepo = getConnection(process.env.NODE_ENV).getRepository(User);
+                 await UserRepo.createQueryBuilder("User").createQueryBuilder().delete().from(User).where("id = :id", {id:element.id}).execute();
+                 deleteRes=true;
+                 
+             } catch (error) {
+                throw new ErrorResponse(`${error.message}`,ErrorTypes.DB_ERROR); 
+             }
+           break;
+     
+         default:
+             break;
+     }
+
+     return deleteRes;
+ }

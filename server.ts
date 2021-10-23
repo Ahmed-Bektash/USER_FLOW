@@ -50,7 +50,7 @@ createConnection(process.env.NODE_ENV as string).then(async connection => {
 
     process.on("unhandledRejection",(error)=>{ //this also takes a promise with the error --> read more into it
       console.log("There is an error",error);
-      server.close(()=>process.exit(1));
+      server.close(()=>process.exit(1)); //one means error, zero is no error
     })
    
 

@@ -1,5 +1,5 @@
 {
-  "name": "userflow_backend",
+  "name": "insummarybackend",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -8,7 +8,7 @@
     "watch": "tsc -w",
     "dev": "nodemon dist/server.js",
     "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js",
-    "genmigrations": "node --require ts-node/register ./node_modules/typeorm/cli.js migration:generate -n migrationname -p",
+    "genmigrations": "node --require ts-node/register ./node_modules/typeorm/cli.js migration:generate -n migrationname -p -c development",
     "runMigrations": "node --require ts-node/register ./node_modules/typeorm/cli.js migration:run"
   },
   "author": "itsbektash",
